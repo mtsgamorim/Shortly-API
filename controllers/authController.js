@@ -24,7 +24,6 @@ export async function loginUser(req, res) {
     `SELECT * FROM users WHERE email = $1`,
     [user.email]
   );
-  console.log(inPostgres);
 
   if (
     inPostgres.length > 0 &&

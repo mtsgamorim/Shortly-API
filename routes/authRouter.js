@@ -3,7 +3,7 @@ import { createUser, loginUser } from "../controllers/authController.js";
 import {
   validateSignUp,
   validateSignIn,
-} from "../middlewares/authMiddlewares.js";
+} from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
