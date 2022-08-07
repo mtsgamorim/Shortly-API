@@ -26,3 +26,20 @@ export async function getUrl(req, res) {
     url: url.url,
   });
 }
+
+export async function redirectUrl(req, res) {
+  const url = res.locals;
+  console.log(url);
+  let cont = url.visitCount + 1;
+  await connection.query(`UPDATE urls SET "visitCount"=$1 WHERE id = $2;`, [
+    cont,
+    url.id,
+  ]);
+  res.redirect(`${url.url}`);
+}
+
+export async function deleteUrl(req, res) {
+  const id = req.params.id;
+  await connection.query("DELETE FROM urls WHERE id = $1", [id]);
+  res.status(204).send();
+}

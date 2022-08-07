@@ -41,3 +41,36 @@ export async function validateParam(req, res, next) {
 
   next();
 }
+
+export async function validateParamUrl(req, res, next) {
+  const param = req.params.shortUrl;
+
+  const { rows: url } = await connection.query(
+    `SELECT * FROM urls WHERE "shortUrl" = $1`,
+    [param]
+  );
+  if (url.length === 0) {
+    res.sendStatus(404);
+    return;
+  }
+  res.locals = url[0];
+
+  next();
+}
+
+export async function validateUser(req, res, next) {
+  const url = res.locals;
+  const { authorization } = req.headers;
+  const token = authorization?.replace("Bearer ", "");
+
+  const { rows: session } = await connection.query(
+    `SELECT * FROM sessions WHERE token = $1`,
+    [token]
+  );
+
+  if (session[0].userId !== url.userId) {
+    res.status(401).send();
+  }
+
+  next();
+}
