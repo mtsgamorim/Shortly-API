@@ -24,6 +24,6 @@ router.delete(
   validateParam,
   validateUser,
   deleteUrl
-); // VERIFICAR RES.LOCALS O QUE ESTA SENDO RECEBIDO
+);
 
 export default router;

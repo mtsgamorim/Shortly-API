@@ -1,4 +1,5 @@
 import connection from "../dbStrategy/postgres.js";
+import joi from "joi";
 
 export async function validateToken(req, res, next) {
   const { authorization } = req.headers;
